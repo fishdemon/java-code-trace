@@ -1,0 +1,67 @@
+plugins {
+    id 'java'
+    id 'idea'
+}
+
+// set dependencies of all projects
+allprojects {
+    apply plugin: 'idea'
+    apply plugin: 'java'
+
+    group 'com.fishdemon.jct'
+    version '1.0'
+
+    sourceCompatibility = 1.8
+
+    repositories {
+        maven{ url 'https://maven.aliyun.com/repository/jcenter'}
+        maven{ url 'https://maven.aliyun.com/repository/gradle-plugin'}
+        maven{ url 'https://maven.aliyun.com/repository/public'}
+        mavenCentral()
+    }
+}
+
+// set dependencies of sub projects
+subprojects {
+
+    dependencies {
+//        compileOnly 'org.projectlombok:lombok'
+//        annotationProcessor 'org.projectlombok:lombok'
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+}
+
+project(':jct-ftp') {
+    dependencies {
+        // 实现 ftp server 所有的依赖
+        implementation 'org.apache.ftpserver:ftpserver-core:1.1.1'
+        implementation 'org.slf4j:slf4j-api:1.7.30'
+        implementation 'org.slf4j:jcl-over-slf4j:1.7.30'
+        implementation 'org.slf4j:slf4j-simple:1.7.30'
+
+        // 实现 ftp client 所需的依赖
+        implementation 'commons-net:commons-net:3.6'
+        implementation 'commons-logging:commons-logging:1.2'
+        implementation 'org.apache.logging.log4j:log4j-core:2.13.3'
+    }
+}
+
+project(':jct-rabbitmq') {
+    dependencies {
+        implementation 'com.rabbitmq:amqp-client:5.3.0'
+    }
+}
+
+project(':jct-zookeeper') {
+    dependencies {
+        implementation 'org.apache.zookeeper:zookeeper:3.4.9'
+    }
+}
+
+dependencies {
+    implementation 'junit:junit:4.12'
+    implementation 'junit:junit:4.12'
+}

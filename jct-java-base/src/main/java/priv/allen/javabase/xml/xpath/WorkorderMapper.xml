@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<mapper namespace="com.delta.ams.workorder.dao.WorkorderDao">
+	<resultMap type="com.delta.ams.workorder.entity.WorkorderEntity" id="WorkorderEntity">
+		<id column="id" property="id" jdbcType="INTEGER"/>
+		<result column="workorder" property="workorder" jdbcType="VARCHAR"/>
+		<result column="product_id" property="productId" jdbcType="VARCHAR"/>
+		<result column="product_name" property="productName" jdbcType="VARCHAR"/>
+		<result column="side" property="side" jdbcType="CHAR"/>
+		<result column="po_id" property="poId" jdbcType="INTEGER"/>
+		<result column="po_no" property="poNo" jdbcType="VARCHAR"/>
+		<result column="line_name" property="lineName" jdbcType="VARCHAR"/>
+		<result column="type" property="type" jdbcType="VARCHAR"/>
+		<result column="status" property="status" jdbcType="VARCHAR"/>
+		<result column="qty" property="qty" jdbcType="INTEGER"/>
+		<result column="current_qty" property="currentQty" jdbcType="INTEGER"/>
+		<result column="online_time_plan" property="onlineTimePlan" jdbcType="TIMESTAMP" javaType="java.lang.String"/>
+		<result column="online_time_actual" property="onlineTimeActual" jdbcType="TIMESTAMP" javaType="java.lang.String"/>
+		<result column="offline_time_plan" property="offlineTimePlan" jdbcType="TIMESTAMP" javaType="java.lang.String"/>
+		<result column="offline_time_actual" property="offlineTimeActual" jdbcType="TIMESTAMP" javaType="java.lang.String"/>
+		<result column="serial_id" property="serialId" jdbcType="INTEGER" />
+	    <result column="active" property="active" jdbcType="CHAR" />
+	    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+	    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" javaType="java.lang.String"/>
+	    <result column="last_update_by" property="lastUpdateBy" jdbcType="VARCHAR" />
+	    <result column="last_update_date" property="lastUpdateDate" jdbcType="TIMESTAMP" javaType="java.lang.String"/>
+	</resultMap>
+	
+	<insert id="saveWorkorder" useGeneratedKeys="true" keyProperty="id" parameterType="com.delta.ams.workorder.entity.WorkorderEntity">
+		insert into t_ams_dg5_workorder 
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="workorder != null" >
+			 	 workorder,
+			</if>
+			<if test="productId != null" >
+			 	 product_id,
+			</if>
+			<if test="productName != null" >
+			 	 product_name,
+			</if>
+			<if test="side != null" >
+			  	side,
+			</if>
+			<if test="poId != null" >
+			 	 po_id,
+			</if>
+			<if test="poNo != null" >
+			  	po_no,
+			</if>
+			<if test="lineName != null" >
+			 	 line_name,
+			</if>
+			<if test="type != null" >
+			 	 type,
+			</if>
+			<if test="status != null" >
+			 	 status,
+			</if>
+		 	<if test="qty != null" >
+			  	qty,
+			</if>
+		 	<if test="currentQty != null" >
+			  	current_qty,
+			</if>
+		  	<if test="onlineTimePlan != null" >
+			  	online_time_plan,
+			</if>
+		  	<if test="onlineTimeActual != null" >
+			  	online_time_actual,
+			</if>
+		  	<if test="offlineTimePlan != null" >
+			 	 offline_time_plan,
+			</if>
+			<if test="offlineTimeActual != null" >
+			  	offline_time_actual,
+			</if>
+			<if test="serialId != null" >
+			  	serial_id,
+			</if>
+		 	 <if test="active != null" >
+			 	 active,
+			</if>
+		  	<if test="createBy != null" >
+			  	create_by,
+			</if>
+	 	 	<if test="createDate != null" >
+			 	 create_date,
+			</if>
+		   	<if test="lastUpdateBy != null" >
+			 	 last_update_by,
+			</if>
+			<if test="lastUpdateDate != null" >
+			  	last_update_date,
+			</if>
+	    </trim>
+	    <trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="workorder != null" >
+			 	 #{workorder,jdbcType=VARCHAR},
+			</if>
+			<if test="productId != null" >
+			 	 #{productId}::INTEGER,
+			</if>
+			<if test="productName != null" >
+			  	#{productName,jdbcType=VARCHAR},
+			</if>
+			<if test="side != null" >
+			 	 #{side,jdbcType=VARCHAR},
+			</if>
+			<if test="poId != null" >
+			  	#{poId}::INTEGER,
+			</if>
+			<if test="poNo != null" >
+			 	 #{poNo,jdbcType=VARCHAR},
+			</if>
+			<if test="lineName != null" >
+		  		 #{lineName,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null" >
+			 	 #{type,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null" >
+			 	 #{status,jdbcType=VARCHAR},
+			</if>
+			<if test="qty != null" >
+			 	 #{qty}::INTEGER,
+			</if>
+			<if test="currentQty != null" >
+			 	 #{currentQty}::INTEGER,
+			</if>
+		   <if test="onlineTimePlan != null" >
+			 	 #{onlineTimePlan}::TIMESTAMP,
+			</if>
+			  <if test="onlineTimeActual != null" >
+			 	 #{onlineTimeActual}::TIMESTAMP,
+			</if>
+			  <if test="offlineTimePlan != null" >
+			  	#{offlineTimePlan}::TIMESTAMP,
+			</if>
+			<if test="offlineTimeActual != null" >
+				#{offlineTimeActual}::TIMESTAMP,
+			</if>
+			<if test="serialId != null" >
+				#{serialId,jdbcType=INTEGER},
+			</if>
+	   		<if test="active != null" >
+	     		#{active,jdbcType=CHAR},
+	   		</if>
+	   		<if test="createBy != null" >
+	     		#{createBy,jdbcType=VARCHAR},
+	   		</if>
+	   		<if test="createDate != null" >
+	     		#{createDate,jdbcType=TIMESTAMP},
+	   		</if>
+	   		<if test="lastUpdateBy != null" >
+	     		#{lastUpdateBy,jdbcType=VARCHAR},
+	   		</if>
+	   		<if test="lastUpdateDate != null" >
+	     		#{lastUpdateDate,jdbcType=TIMESTAMP},
+	   		</if>
+	    </trim>
+	</insert>
+	<update id="updateWorkorder" parameterType="com.delta.ams.workorder.entity.WorkorderEntity">
+		update t_ams_dg5_workorder 
+		<trim prefix="set" suffixOverrides=",">
+			 <if test="workorder != null">
+				workorder=#{workorder,jdbcType=VARCHAR} ,
+			 </if>
+			 <if test="productId != null">
+			 	product_id=#{productId}::INTEGER,
+			 </if>
+			 <if test="productName != null">
+			 	product_name=#{productName,jdbcType=VARCHAR} ,
+			 </if>
+			 <if test="side != null">
+			 	side=#{side,jdbcType=CHAR} ,
+			 </if>
+			  <if test="poId != null">
+			 	po_id=#{poId}::INTEGER,
+			 </if>
+			  <if test="poNo != null">
+			 	po_no=#{poNo,jdbcType=VARCHAR} ,
+			 </if>
+			  <if test="lineName != null">
+			 	line_name=#{lineName,jdbcType=VARCHAR} ,
+			 </if>
+			  <if test="type != null">
+			 	type=#{type,jdbcType=VARCHAR} ,
+			 </if>
+			  <if test="status != null">
+			 	status=#{status,jdbcType=VARCHAR} ,
+			 </if>
+			 <if test="qty != null">
+			 	qty=#{qty}::INTEGER,
+			 </if>
+			 <if test="currentQty != null">
+			 	current_qty=#{currentQty}::INTEGER,
+			 </if>
+			 <if test="onlineTimePlan != null and '' != onlineTimePlan">
+				online_time_plan = #{onlineTimePlan}::TIMESTAMP,
+			</if>
+			<if test="onlineTimePlan != null and '' == onlineTimePlan">
+				online_time_plan = null ,
+			</if>
+						
+			<if test="offlineTimePlan != null and '' != offlineTimePlan ">
+				offline_time_plan =#{offlineTimePlan}::TIMESTAMP,
+			</if>
+			<if test="offlineTimePlan != null and '' == offlineTimePlan">
+				offline_time_plan = null ,
+			</if>
+			
+			<if test="onlineTimeActual != null and '' != onlineTimeActual">
+				online_time_actual = #{onlineTimeActual}::TIMESTAMP,
+			</if>
+			<if test="onlineTimeActual != null and '' == onlineTimeActual">
+				online_time_actual = null ,
+			</if>
+			<if test="offlineTimeActual != null and '' != offlineTimeActual">
+				offline_time_actual =#{offlineTimeActual}::TIMESTAMP,
+			</if>
+			<if test="offlineTimeActual != null and '' == offlineTimeActual">
+				offline_time_actual = null ,
+			</if> 
+			 <if test="active != null">
+				active = #{active,jdbcType=CHAR},
+			</if>
+			<if test="lastUpdateBy != null">
+				last_update_by = #{lastUpdateBy,jdbcType=VARCHAR},
+			</if>
+			serial_id = serial_id + 1,
+			last_update_date = now()
+		</trim>
+ 			where id=#{id}::INTEGER
+	</update>
+	
+	<select id="listWorkorder" parameterType="com.delta.ams.workorder.entity.WorkorderEntity" resultMap="WorkorderEntity">
+		select * from t_ams_dg5_workorder
+		<trim prefix="where" suffix="" suffixOverrides="and">
+		  	<if test="id != null">
+	          id = #{id}::INTEGER  and 
+	    	</if>
+	    	<if test="workorder != null">
+				workorder = #{workorder,jdbcType=VARCHAR} and
+			</if>
+			<if test="productId != null">
+				product_id = #{productId}::INTEGER and
+			</if>
+			<if test="productName != null">
+				product_name = #{productName,jdbcType=VARCHAR} and
+			</if>
+			<if test="side != null">
+				side = #{side,jdbcType=VARCHAR} and
+			</if>
+			<if test="poId != null">
+				po_id = #{poId}::INTEGER and
+			</if>
+			<if test="poNo != null">
+				po_no = #{poNo,jdbcType=VARCHAR} and
+			</if>
+			<if test="lineName != null">
+				line_name = #{lineName,jdbcType=VARCHAR} and
+			</if>
+			<if test="type != null">
+				type = #{type,jdbcType=VARCHAR} and
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=VARCHAR} and
+			</if>
+			<if test="qty != null">
+				qty = #{qty}::INTEGER and
+			</if>
+			<if test="currentQty != null">
+				current_qty = #{currentQty}::INTEGER and
+			</if>
+			<if test="onlineTimePlan != null">
+	            online_time_plan = #{onlineTimePlan} and
+	    	</if>
+	    	<if test="onlineTimeActual != null">
+	            online_time_actual = #{onlineTimeActual} and
+	    	</if>
+	    	<if test="offlineTimePlan != null">
+	            offline_time_plan = #{offlineTimePlan} and
+	    	</if>
+	    	<if test="offlineTimeActual != null">
+	            offline_time_actual = #{offlineTimeActual} and
+	    	</if>
+			<if test="createDate != null">
+				create_date = #{createDate,jdbcType=TIMESTAMP} and
+			</if>
+			<if test="createBy != null">
+				create_by = #{createBy,jdbcType=VARCHAR} and
+			</if>
+			<if test="lastUpdateDate != null">
+				last_update_date = #{lastUpdateDate,jdbcType=TIMESTAMP}
+				and
+			</if>
+			<if test="lastUpdateBy != null">
+				last_update_by = #{lastUpdateBy,jdbcType=VARCHAR} and
+			</if>
+			active= 'Y'
+		</trim>
+    	order by last_update_date desc
+	</select> 
+	
+	<select id="listAllWorkorder" resultMap="WorkorderEntity">
+		select * from public.t_ams_dg5_workorder where active= 'Y'
+	</select>
+	
+	<select id="listChildWorkorder" resultMap="WorkorderEntity">
+		select * from t_ams_dg5_workorder where id in(
+		SELECT DISTINCT (r.child_id)
+			FROM
+		t_ams_dg5_workorder w
+		LEFT JOIN t_ams_dg5_workorder_relation r ON w.ID = r.parent_id
+		where w.id = #{id}::INTEGER and w.active = 'Y' and r.active = 'Y') and active = 'Y'
+	</select>
+	
+	<select id="checkParentWorkorder" resultMap="WorkorderEntity" parameterType="java.lang.Integer">
+	select * from t_ams_dg5_workorder where id = (
+		SELECT r.parent_id  FROM
+			t_ams_dg5_workorder w LEFT JOIN t_ams_dg5_workorder_relation r 
+			ON w.ID = r.child_id
+			where w.active = 'Y' and r.active = 'Y' and r.child_id = #{id})
+	 and active = 'Y' 
+	</select>
+	
+	<select id="listWorkorderById" resultMap="WorkorderEntity" parameterType="java.lang.Integer">
+		select * from t_ams_dg5_workorder where id = #{id}  and active = 'Y' 
+	</select>
+	
+</mapper>
