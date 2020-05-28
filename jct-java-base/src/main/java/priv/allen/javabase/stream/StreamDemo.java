@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
+ * java 1.8 新特性 stream api 用法
  * 參考：  https://www.cnblogs.com/shenlanzhizun/p/6027042.html
  */
 public class StreamDemo {
@@ -103,6 +104,7 @@ public class StreamDemo {
         System.out.println(user.toString());
     }
 
+    // 规约操作
     public static void testConvention() {
         System.out.println("==============1===============");
         // 规约操作 sum : 计算总和
@@ -120,7 +122,37 @@ public class StreamDemo {
         System.out.println("total age: " + total);
     }
 
-    public static void main(String[] args) {
+    // collectors 收集器规约操作
+    public static void testCollectorsConvention() {
+        // 求总数
+        long count = userList.stream().collect(Collectors.counting());
+        // 进一步简化
+        count = userList.stream().count();
+
+        // 求最大值
+        Optional<User> orderUser = userList.stream().collect(Collectors.maxBy((u1, u2) -> u1.getAge()-u2.getAge()));
+        orderUser = userList.stream().collect(Collectors.maxBy(Comparator.comparing(User::getAge)));
+
+        // 求最小值
+        Optional<User> youngestUser = userList.stream().collect(Collectors.minBy(Comparator.comparing(User::getAge)));
+
+        // 求年龄总和
+        int totalAge = userList.stream().collect(Collectors.summingInt(User::getAge));
+
+        // 求年龄平均值
+        double averageAge = userList.stream().collect(Collectors.averagingInt(User::getAge));
+
+        // 一次性得到元素个数，总和，均指，最大值，最小值
+        IntSummaryStatistics summaryStatistics = userList.stream().collect(Collectors.summarizingInt(User::getAge));
+
+        // 字符串拼接
+        String names = userList.stream().map(User::getName).collect(Collectors.joining());
+        // 用逗号拼接字符串
+        String namesWithComma = userList.stream().map(User::getName).collect(Collectors.joining(","));
+    }
+
+    // collectors 收集器分组/分区操作
+    public static  void testGroup() {
         System.out.println("==============1===============");
         // list -> map
         Map<Integer, User> userMap = userList.stream().collect(Collectors.toMap(User::getId, user -> user));
@@ -128,8 +160,30 @@ public class StreamDemo {
 
         System.out.println("==============2===============");
         // groupby 进行数据分组
-        userList.stream().collect(Collectors.groupingBy(User::getAge));
+        Map<Integer,List<User>> userGroupingMap = userList.stream().collect(Collectors.groupingBy(User::getAge));
 
+        System.out.println("==============3===============");
+        // groupby 进行数据多级分组
+        Map<Integer, Map<String, List<User>>> userGroupingMap2 = userList.stream().collect(
+                Collectors.groupingBy(User::getAge,             // 一级分组, 按年龄
+                        Collectors.groupingBy(User::getName))   // 二级分组, 按姓名
+        );
+
+        System.out.println("==============4===============");
+        // groupby 进行分组统计
+        // groupby 的第二个参数不是只能传递 goupingby 实现多级分组，还能传递 Collectors 的其他方法
+        Map<Integer, Long> groupCount = userList.stream().collect(Collectors.groupingBy(User::getAge, Collectors.counting()));
+
+        System.out.println("==============5===============");
+        // partitioningBy 分区（可以看成是分组的特例，只分有两组）
+        // 参数是条件语句，将结果分为两组，true / false
+        Map<Boolean, List<User>> partitionMap = userList.stream().collect(Collectors.partitioningBy(u -> u.getAge() > 20));
+        // 分区统计, 满足条件与不满足条件的个数统计
+        Map<Boolean, Long> partitioinCount = userList.stream().collect(Collectors.partitioningBy(user -> user.getAge()>20, Collectors.counting()));
+    }
+
+    public static void main(String[] args) {
+        testCollectorsConvention();
     }
 
     private static class User {
