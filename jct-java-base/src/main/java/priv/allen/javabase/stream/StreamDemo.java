@@ -2,6 +2,7 @@ package priv.allen.javabase.stream;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * java 1.8 新特性 stream api 用法
@@ -180,6 +181,15 @@ public class StreamDemo {
         Map<Boolean, List<User>> partitionMap = userList.stream().collect(Collectors.partitioningBy(u -> u.getAge() > 20));
         // 分区统计, 满足条件与不满足条件的个数统计
         Map<Boolean, Long> partitioinCount = userList.stream().collect(Collectors.partitioningBy(user -> user.getAge()>20, Collectors.counting()));
+    }
+
+    // 数组流操作
+    public static void testArray() {
+        String[] arr = new String[] {"1","2","3"};
+        Stream<String> arrStream = Arrays.stream(arr);
+        arrStream.forEach(System.out::println);
+
+
     }
 
     public static void main(String[] args) {
